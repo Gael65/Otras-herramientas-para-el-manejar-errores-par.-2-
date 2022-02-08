@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-qequiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promesas JS</title>
+
+    <script>
+        function myDisplayer(content) {
+            document.getElementById("container").innerHTML = content;
+        }
+    
+        let myPromise = new Promise(function(myResolve, myReject) {
+            let req = new XMLHttpRequest();
+            req.open('GET', "secondFilehtml");
+            req.onload = function() {
+                if (req.status == 200) {
+                    myResolve(req.response);
+                } else {
+                    myReject("Archivo no encontrado" + ", Error: " + req.status);
+                }
+            };
+            req.send();
+        });
+    
+        myPromise.then(
+            function(value) {myDisplayer(value);},
+            function(error) {myDisplayer(error);}
+        );
+    </script>
+    
+</head>
+<body>
+    <h2>Promesas en JavaScript</h2>
+    <div id="container"></div>
+</body>
+</html>
